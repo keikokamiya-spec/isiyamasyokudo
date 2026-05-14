@@ -109,42 +109,63 @@
     <!-- おすすめメニュー -->
     <section class="section menu reveal" id="menu">
       <h2>おすすめメニュー</h2>
-      <div class="menu-grid">
-        <article class="card">
-          <img src="カツカレー動画.jpg" alt="カツカレー" />
-          <div class="card-body">
-            <h3>カツカレー</h3>
-            <p>サクッと揚げたカツにこだわりのカレーをたっぷり。石山食堂の大看板です。</p>
-          </div>
-        </article>
-        <article class="card">
-          <img src="unnamed (1).jpg" alt="ラーメンセット" />
-          <div class="card-body">
-            <h3>ラーメンセット</h3>
-            <p>スープまで飲み干したくなる醤油ラーメンと、ボリューム満点のセットメニュー。</p>
-          </div>
-        </article>
-        <article class="card">
-          <img src="unnamed (2).jpg" alt="唐揚げ定食" />
-          <div class="card-body">
-            <h3>唐揚げ定食</h3>
-            <p>ジューシーな唐揚げにご飯・スープが付いた、毎日食べたくなる定食です。</p>
-          </div>
-        </article>
-        <article class="card">
-          <img src="unnamed (3).jpg" alt="チャーハン" />
-          <div class="card-body">
-            <h3>チャーハン</h3>
-            <p>パラリとした食感と風味豊かな味付け。シンプルだからこそ飽きない一品。</p>
-          </div>
-        </article>
-        <article class="card">
-          <img src="unnamed (4).jpg" alt="タンメン" />
-          <div class="card-body">
-            <h3>タンメン</h3>
-            <p>野菜たっぷりのあっさり塩味。体に染み渡るやさしいスープが自慢です。</p>
-          </div>
-        </article>
+
+      <!-- SP スライダー全体ラッパー -->
+      <div class="menu-slider-wrap">
+        <button class="slider-btn slider-prev" aria-label="前のメニュー">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+
+        <div class="menu-grid">
+          <article class="card">
+            <img src="カツカレー動画.jpg" alt="カツカレー" />
+            <div class="card-body">
+              <h3>カツカレー</h3>
+              <p>サクッと揚げたカツにこだわりのカレーをたっぷり。石山食堂の大看板です。</p>
+            </div>
+          </article>
+          <article class="card">
+            <img src="unnamed (1).jpg" alt="ラーメンセット" />
+            <div class="card-body">
+              <h3>ラーメンセット</h3>
+              <p>スープまで飲み干したくなる醤油ラーメンと、ボリューム満点のセットメニュー。</p>
+            </div>
+          </article>
+          <article class="card">
+            <img src="unnamed (2).jpg" alt="唐揚げ定食" />
+            <div class="card-body">
+              <h3>唐揚げ定食</h3>
+              <p>ジューシーな唐揚げにご飯・スープが付いた、毎日食べたくなる定食です。</p>
+            </div>
+          </article>
+          <article class="card">
+            <img src="unnamed (3).jpg" alt="チャーハン" />
+            <div class="card-body">
+              <h3>チャーハン</h3>
+              <p>パラリとした食感と風味豊かな味付け。シンプルだからこそ飽きない一品。</p>
+            </div>
+          </article>
+          <article class="card">
+            <img src="unnamed (4).jpg" alt="タンメン" />
+            <div class="card-body">
+              <h3>タンメン</h3>
+              <p>野菜たっぷりのあっさり塩味。体に染み渡るやさしいスープが自慢です。</p>
+            </div>
+          </article>
+        </div>
+
+        <button class="slider-btn slider-next" aria-label="次のメニュー">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+
+      <!-- SP ドットインジケーター -->
+      <div class="slider-dots" aria-hidden="true">
+        <span class="slider-dot is-active"></span>
+        <span class="slider-dot"></span>
+        <span class="slider-dot"></span>
+        <span class="slider-dot"></span>
+        <span class="slider-dot"></span>
       </div>
     </section>
 
@@ -240,6 +261,61 @@
         idx = (idx + 1) % slides.length;
         slides[idx].classList.add('is-active');
       }, 4500);
+    })();
+
+    /* Menu slider (SP only) */
+    (function () {
+      const wrap  = document.querySelector('.menu-slider-wrap');
+      const cards = document.querySelectorAll('.menu-grid .card');
+      const dots  = document.querySelectorAll('.slider-dot');
+      const prev  = document.querySelector('.slider-prev');
+      const next  = document.querySelector('.slider-next');
+      if (!cards.length) return;
+
+      let current = 0;
+
+      function isSliderActive() {
+        return window.innerWidth <= 768;
+      }
+
+      function goTo(n) {
+        if (!isSliderActive()) return;
+        cards[current].classList.remove('is-active');
+        dots[current].classList.remove('is-active');
+        current = (n + cards.length) % cards.length;
+        cards[current].classList.add('is-active');
+        dots[current].classList.add('is-active');
+      }
+
+      function initSlider() {
+        if (isSliderActive()) {
+          cards.forEach((c, i) => {
+            c.classList.toggle('is-active', i === current);
+          });
+          dots.forEach((d, i) => {
+            d.classList.toggle('is-active', i === current);
+          });
+        } else {
+          cards.forEach(c => c.classList.remove('is-active'));
+        }
+      }
+
+      prev.addEventListener('click', () => goTo(current - 1));
+      next.addEventListener('click', () => goTo(current + 1));
+      dots.forEach((dot, i) => {
+        dot.addEventListener('click', () => goTo(i));
+      });
+
+      /* スワイプ対応 */
+      let startX = 0;
+      wrap.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+      wrap.addEventListener('touchend', e => {
+        const diff = startX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 40) goTo(diff > 0 ? current + 1 : current - 1);
+      }, { passive: true });
+
+      initSlider();
+      window.addEventListener('resize', initSlider);
     })();
 
     /* Gallery carousel */
