@@ -262,7 +262,9 @@ a {
    Concept
    =========================== */
 .intro {
-  background: var(--color-bg);
+  background:
+    linear-gradient(rgba(250, 247, 242, 0.68), rgba(250, 247, 242, 0.68)),
+    url("../assets/enhanced/concept-bg.jpg") center / cover no-repeat;
 }
 .concept-head {
   text-align: center;
@@ -292,18 +294,10 @@ a {
   letter-spacing: 0.2em;
 }
 
-/* Two-column layout */
 .concept-body {
-  display: grid;
-  grid-template-columns: 1fr 360px;
-  gap: 3.5rem;
-  align-items: start;
-}
-@media (max-width: 800px) {
-  .concept-body {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 /* PC / SP text switching */
@@ -331,27 +325,6 @@ a {
   font-size: 0.95rem;
   line-height: 2.1;
   color: var(--color-text);
-}
-
-.concept-image-wrap {
-  position: sticky;
-  top: 4rem;
-}
-.concept-image {
-  width: 100%;
-  border-radius: var(--radius);
-  object-fit: cover;
-  aspect-ratio: 3 / 4;
-  box-shadow: var(--shadow);
-}
-@media (max-width: 800px) {
-  .concept-image-wrap {
-    position: static;
-    order: -1;
-  }
-  .concept-image {
-    aspect-ratio: 4 / 3;
-  }
 }
 
 /* ===========================

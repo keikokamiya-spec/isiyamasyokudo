@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "isiyamasyokudo",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "-l", "3457", "."],
+      "port": 3457,
+      "autoPort": true
+    }
+  ]
+}
