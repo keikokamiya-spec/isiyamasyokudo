@@ -264,7 +264,7 @@ a {
 .intro {
   background:
     linear-gradient(rgba(250, 247, 242, 0.68), rgba(250, 247, 242, 0.68)),
-    url("../assets/enhanced/concept-bg.jpg") center / cover no-repeat;
+    url("../assets/enhanced/pc-hq/concept-bg-hq.jpg") center / cover no-repeat;
 }
 .concept-head {
   text-align: center;
